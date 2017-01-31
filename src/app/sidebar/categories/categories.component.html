@@ -1,8 +1,7 @@
-<div class="category-listing">
+<h2 style="margin-left: 10px">Categories</h2>
+<div class="category-listing" *ngFor="let category of categories">
   <button md-button>
-    <md-icon>code</md-icon>
-    Add new option
+    <md-icon>{{category.icon}}</md-icon>
+    {{category.name}}
   </button>
 </div>
-<button md-button>Remodify extras</button>
-<button md-button>Build collection</button>

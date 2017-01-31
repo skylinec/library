@@ -14,3 +14,7 @@ button {
   margin-left: 0;
   text-align: left;
 }
+
+#category-container {
+  margin-top: 5px;
+}

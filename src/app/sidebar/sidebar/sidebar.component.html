@@ -1,11 +1,5 @@
-<md-sidenav mode="over" md-is-locked-open="true" #sidenav>
-  <md-list>
-    <button md-button>
-      <md-icon>code</md-icon>
-      Add new option
-    </button>
-    <button md-button>Remodify extras</button>
-    <button md-button>Build collection</button>
-  </md-list>
-  <app-categories></app-categories>
-</md-sidenav>
+<div id="sidenav-container">
+  <md-sidenav mode="over" md-is-locked-open="true" #sidenav>
+    <app-categories id="category-container"></app-categories>
+  </md-sidenav>
+</div>

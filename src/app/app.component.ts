@@ -7,10 +7,14 @@ import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 })
 export class AppComponent {
 
-  @ViewChild('sidebar') sidebar;
+  routerOutlet: any;
 
   toggleNav() {
-    this.sidebar.toggle();
+    this.routerOutlet.toggleNav();
+  }
+
+  onActivate(event) {
+    this.routerOutlet = event;
   }
 
 }
