@@ -2,10 +2,13 @@
   <span flex></span>
   <md-list-item id="logo"><h1>Library App</h1></md-list-item>
   <button md-button routerLink="home" class="standard">Home</button>
+  <button md-button routerLink="about" class="standard">About</button>
   <span flex></span>
-  <button class="right" md-icon-button (click)="toggleNav()">
-    <md-icon>more_vert</md-icon>
-  </button>
+  <div [hidden]="!(router.url === '/home')">
+    <button class="right" md-icon-button (click)="toggleNav()">
+      <md-icon>more_vert</md-icon>
+    </button>
+  </div>
   <span flex></span>
 </md-toolbar>
 

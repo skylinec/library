@@ -14,6 +14,8 @@ import {CategoriesComponent} from './sidebar/categories/categories.component';
 import {MaterialModule} from "@angular/material";
 import {routes} from "./app.routes";
 import 'hammerjs';
+import {AboutComponent} from './pages/about/about.component';
+import {BookService} from "./book.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import 'hammerjs';
     RegisterComponent,
     NavComponent,
     SidebarComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import 'hammerjs';
     HttpModule,
     MaterialModule.forRoot(),
   ],
-  providers: [],
+  providers: [BookService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
