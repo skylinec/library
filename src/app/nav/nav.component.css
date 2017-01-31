@@ -1,0 +1,18 @@
+button {
+
+}
+
+.standard {
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#right {
+  right: 0px;
+  position: fixed;
+}
+
+#logo {
+  margin-right: 15px;
+}

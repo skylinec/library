@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  @ViewChild('sidebar') sidebar;
+
+  toggleNav() {
+    this.sidebar.toggle();
+  }
+
 }

@@ -12,6 +12,8 @@ import {NavComponent} from './nav/nav.component';
 import {SidebarComponent} from './sidebar/sidebar/sidebar.component';
 import {CategoriesComponent} from './sidebar/categories/categories.component';
 import {MaterialModule} from "@angular/material";
+import {routes} from "./app.routes";
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,11 @@ import {MaterialModule} from "@angular/material";
     CategoriesComponent
   ],
   imports: [
-    MaterialModule.forRoot(),
     BrowserModule,
+    routes,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MaterialModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
