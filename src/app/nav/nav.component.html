@@ -1,10 +1,11 @@
-<div class="example-container">
-  <md-toolbar>
-    <md-list-item id="logo"><h1>Library App</h1></md-list-item>
-    <br>
-    <button md-button routerLink="home" class="standard">Home</button>
-    <button id="right" md-icon-button (click)="toggleNav()">
-      <md-icon>more_vert</md-icon>
-    </button>
-  </md-toolbar>
-</div>
+<md-toolbar>
+  <span flex></span>
+  <md-list-item id="logo"><h1>Library App</h1></md-list-item>
+  <button md-button routerLink="home" class="standard">Home</button>
+  <span flex></span>
+  <button class="right" md-icon-button (click)="toggleNav()">
+    <md-icon>more_vert</md-icon>
+  </button>
+  <span flex></span>
+</md-toolbar>
+

@@ -1,0 +1,21 @@
+#quote-container {
+  border-color: black;
+  border-radius: 10%;
+  margin-top: 5px;
+}
+
+.right {
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+.left {
+  float: left;
+  pointer-events: none;
+  width: 50%;
+}
+
+#invis-box {
+  height: 10px;
+  text-align: center;
+}

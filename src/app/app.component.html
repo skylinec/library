@@ -4,7 +4,12 @@
       style="max-width: 1600px; min-width: 1024px; margin-left: auto; margin-right: auto; background-color: white; height: auto;">
       {{title}}
       <app-nav (toggledNav)="toggleNav()"></app-nav>
-      <router-outlet (activate)="onActivate($event)"></router-outlet>
+      <div id="quote-container" style="" #quotecontainer (click)="toggleQuote()">
+        <i style="font-size: small" [hidden]="!showQuote">Nugget of wisdom: "<b>{{quote}}</b>"</i>
+        <span class="invis-box" [hidden]="showQuote"><md-progress-bar mode="indeterminate"></md-progress-bar></span>
+        <hr>
+      </div>
+      <router-outlet (activate)="onActivate($event)" style="position: fixed"></router-outlet>
     </div>
   </md-sidenav-container>
 </div>

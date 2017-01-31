@@ -9,14 +9,14 @@ button {
 }
 
 #right {
-  right: 0px;
-  margin-right: 200px;
-  position: absolute;
+  float: right;
 }
 
 #logo {
   margin-right: 15px;
+  margin-left: 15px;
 }
 
 .example-container {
+  width: 100%;
 }
