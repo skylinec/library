@@ -10,9 +10,13 @@ button {
 
 #right {
   right: 0px;
-  position: fixed;
+  margin-right: 200px;
+  position: absolute;
 }
 
 #logo {
   margin-right: 15px;
+}
+
+.example-container {
 }

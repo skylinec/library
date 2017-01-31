@@ -1,8 +1,10 @@
-<md-sidenav-container fullscreen="">
-  {{title}}
-  <app-nav (toggledNav)="toggleNav()"></app-nav>
-  <md-card>
-    <md-card-content>Hey.</md-card-content>
-  </md-card>
-  <router-outlet (activate)="onActivate($event)"></router-outlet>
-</md-sidenav-container>
+<div>
+  <md-sidenav-container fullscreen="true" style="background-color: transparent; height: auto; position: fixed">
+    <div
+      style="max-width: 1600px; min-width: 1024px; margin-left: auto; margin-right: auto; background-color: white; height: auto;">
+      {{title}}
+      <app-nav (toggledNav)="toggleNav()"></app-nav>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+  </md-sidenav-container>
+</div>
