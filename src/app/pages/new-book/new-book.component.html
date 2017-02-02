@@ -43,11 +43,10 @@
     </div>
     <div>
       <div class="section">
-        <h3>Input tag with editable items</h3>
         <tag-input formControlName="tags"
                    [editable]="true"></tag-input>
       </div>
     </div>
-    <button md-button type="submit">Submit</button>
+    <button md-button [disabled]="!newBookForm.valid" type="submit">Submit</button>
   </form>
 </md-card>

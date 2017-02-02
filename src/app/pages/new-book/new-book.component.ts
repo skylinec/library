@@ -24,6 +24,11 @@ export class NewBookComponent implements OnInit {
   public submitted: boolean; // keep track on whether form is submitted
   public events: any[] = []; // use later to display form changes
 
+  public options = {
+    readonly: undefined,
+    placeholder: 'Tags (Press enter for each)'
+  };
+
   value: any;
 
   constructor(private fb: FormBuilder,
@@ -74,7 +79,7 @@ export class NewBookComponent implements OnInit {
         Validators.required,
         Validators.minLength(3)
       ]],
-      tags: [['book']],
+      tags: [[]],
     })
   }
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, OnChanges} from '@angular/core';
 import {BookService} from "../../book.service";
 import {Book} from "../../Book";
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 import {router} from "../../app.routes";
@@ -12,7 +12,7 @@ import {NotificationsService} from "angular2-notifications";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   @ViewChild('sidebar') sidebar;
 
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   errorMessage: string;
   currentCategory: any;
   currentCategoryName: string = "All";
+
+  childCategories: Array<Object>;
 
   id: string;
   sub: any;
@@ -35,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           books => this.books = books,
           error => this.errorMessage = <any>error);
 
-      this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
+      // this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
     } else {
       this.bookService.getBooksByParentId(this.id.toString())
         .subscribe(
@@ -51,19 +53,39 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       // this.currentCategoryName = this.currentCategory ? this.currentCategory.name : "Error";
 
-      this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category id " + this.id);
+      // this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category " + this.currentCategoryName);
 
     }
 
   }
 
+  getCategoriesByParentId(id: string) {
+    if (!(id == undefined)) {
+      this.categoryService.getCategoriesByParentId(id)
+        .subscribe(
+          categories => this.childCategories = categories,
+          error => this.errorMessage = <any>error);
+    } else {
+      return []
+    }
+  }
+
+  navigateToCategory(id: string, name: string) {
+    window.location.replace("/books" + "/" + id + ";cat=" + name);
+  }
+
   constructor(private bookService: BookService,
               private route: ActivatedRoute,
               private categoryService: CategoryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private router: Router) {
   }
 
   ngOnInit() {
+
+    this.getCategoriesByParentId(this.route.snapshot.params['id']);
+
+    console.log("Child categories: " + this.childCategories);
 
     this.route.params.subscribe(params => {
       console.log('Books category ID: ', params['id']);
@@ -71,6 +93,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentCategoryName = params['cat'];
     });
 
+    this.getBooks();
+  }
+
+  ngOnChanges() {
     this.getBooks();
   }
 

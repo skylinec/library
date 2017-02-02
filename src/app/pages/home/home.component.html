@@ -23,4 +23,13 @@
     </md-grid-list>
   </md-grid-list>
   <app-sidebar style="position: fixed" #sidebar></app-sidebar>
+  <md-card *ngIf="!(childCategories == undefined)">
+    <h2>Child categories</h2>
+    <div *ngFor="let childCategory of childCategories">
+      <button md-button (click)="navigateToCategory(childCategory.id, childCategory.name)">
+        <md-icon>{{childCategory.icon}}</md-icon>
+        <a>{{childCategory.name}}</a>
+      </button>
+    </div>
+  </md-card>
 </md-card>

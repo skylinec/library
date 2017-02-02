@@ -17,6 +17,11 @@ export class CategoryService {
       .map((res: Response) => res.json());
   }
 
+  getCategoriesByParentId(id: string): Observable<Category[]> {
+    return this._http.get(this.categoriesUrl + "?parent=" + id)
+      .map((res: Response) => res.json());
+  }
+
   getCategoryById(id: string): Observable<any> {
     return this._http.get(this.categoriesUrl + "?id=" + id)
       .map((res: Response) => res.json());
