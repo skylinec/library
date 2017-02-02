@@ -1,0 +1,37 @@
+{
+  "type": "Collection",
+  "properties": {
+    "name": {
+      "name": "name",
+      "type": "string",
+      "typeLabel": "string",
+      "required": true,
+      "id": "name",
+      "order": 0
+    },
+    "children": {
+      "name": "children",
+      "type": "array",
+      "typeLabel": "array",
+      "required": false,
+      "id": "children",
+      "order": 1
+    },
+    "books": {
+      "name": "books",
+      "type": "array",
+      "typeLabel": "array",
+      "required": false,
+      "id": "books",
+      "order": 2
+    },
+    "parent": {
+      "name": "parent",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "parent",
+      "order": 3
+    }
+  }
+}

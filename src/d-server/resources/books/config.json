@@ -1,0 +1,53 @@
+{
+  "type": "Collection",
+  "properties": {
+    "title": {
+      "name": "title",
+      "type": "string",
+      "typeLabel": "string",
+      "required": true,
+      "id": "title",
+      "order": 0
+    },
+    "description": {
+      "name": "description",
+      "type": "string",
+      "typeLabel": "string",
+      "required": true,
+      "id": "description",
+      "order": 1
+    },
+    "summary": {
+      "name": "summary",
+      "type": "string",
+      "typeLabel": "string",
+      "required": true,
+      "id": "summary",
+      "order": 2
+    },
+    "tags": {
+      "name": "tags",
+      "type": "array",
+      "typeLabel": "array",
+      "required": false,
+      "id": "tags",
+      "order": 3
+    },
+    "parent": {
+      "name": "parent",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "parent",
+      "order": 4
+    },
+    "author": {
+      "name": "author",
+      "type": "string",
+      "typeLabel": "string",
+      "required": true,
+      "id": "author",
+      "order": 5
+    }
+  }
+}

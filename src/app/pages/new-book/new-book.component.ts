@@ -19,6 +19,7 @@ export class NewBookComponent implements OnInit {
   newBookForm: FormGroup;
   title: AbstractControl;
   parent: AbstractControl;
+  interstitialId: string;
 
   public submitted: boolean; // keep track on whether form is submitted
   public events: any[] = []; // use later to display form changes
@@ -48,7 +49,11 @@ export class NewBookComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       console.log('Books category ID: ', params['id']);
-      this.id = params['id'];
+      if (!(this.route.snapshot.params['id'] == "undefined")) {
+        this.interstitialId = params['id'];
+      } else {
+        this.interstitialId = "";
+      }
     });
 
     this.newBookForm = this.fb.group({
@@ -56,7 +61,7 @@ export class NewBookComponent implements OnInit {
         Validators.required,
         Validators.minLength(5)
       ]],
-      parent: [this.route.snapshot.params['id'], Validators.required],
+      parent: [this.interstitialId, Validators.required],
       description: ['', [
         Validators.required,
         Validators.minLength(10)

@@ -1,0 +1,37 @@
+{
+  "type": "Collection",
+  "properties": {
+    "name": {
+      "name": "name",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "name",
+      "order": 0
+    },
+    "books": {
+      "name": "books",
+      "type": "array",
+      "typeLabel": "array",
+      "required": false,
+      "id": "books",
+      "order": 1
+    },
+    "bio": {
+      "name": "bio",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "bio",
+      "order": 2
+    },
+    "tags": {
+      "name": "tags",
+      "type": "array",
+      "typeLabel": "array",
+      "required": false,
+      "id": "tags",
+      "order": 3
+    }
+  }
+}
