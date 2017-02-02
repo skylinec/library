@@ -1,7 +1,7 @@
 <h2 style="margin-left: 10px">Categories</h2>
 <div class="category-listing" *ngFor="let category of categories">
-  <button md-button>
+  <button md-button [routerLink]="['/books', category.id, {cat: category.name}]">
     <md-icon>{{category.icon}}</md-icon>
-    {{category.name}}
+    <a>{{category.name}}</a>
   </button>
 </div>

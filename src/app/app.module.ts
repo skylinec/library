@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, Jsonp, ConnectionBackend, JsonpModule} from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,11 @@ import {routes} from "./app.routes";
 import 'hammerjs';
 import {AboutComponent} from './pages/about/about.component';
 import {BookService} from "./book.service";
+import {ViewBookComponent} from './pages/view-book/view-book.component';
+import {CategoryNamePipe} from './category-name.pipe';
+import {CategoryService} from "./category.service";
+import {SimpleNotificationsModule} from "angular2-notifications";
+import {TagInputModule} from "ng2-tag-input";
 
 @NgModule({
   declarations: [
@@ -27,17 +32,22 @@ import {BookService} from "./book.service";
     NavComponent,
     SidebarComponent,
     CategoriesComponent,
-    AboutComponent
+    AboutComponent,
+    ViewBookComponent,
+    CategoryNamePipe,
   ],
   imports: [
     BrowserModule,
+    SimpleNotificationsModule,
     routes,
     FormsModule,
+    ReactiveFormsModule,
     JsonpModule,
     HttpModule,
     MaterialModule.forRoot(),
+    TagInputModule
   ],
-  providers: [BookService],
+  providers: [BookService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

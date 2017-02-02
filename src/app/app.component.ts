@@ -1,6 +1,12 @@
+import {Book} from "./Book";
 declare function require(name: string);
 
-import {Component, ViewChild, Output, EventEmitter, OnChanges} from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter, OnChanges, OnInit} from '@angular/core';
+import {BookService} from "./book.service";
+import {CategoryService} from "./category.service";
+import {Category} from "./Category";
+import {forEach} from "@angular/router/src/utils/collection";
+import {NotificationsService} from "angular2-notifications";
 var starwars = require('starwars');
 
 @Component({
@@ -8,7 +14,7 @@ var starwars = require('starwars');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnChanges {
+export class AppComponent implements OnChanges, OnInit {
 
   routerOutlet: any;
 
@@ -16,21 +22,33 @@ export class AppComponent implements OnChanges {
 
   showQuote: Boolean = true;
 
-  bookCount: number;
+  bookCount: number = 0;
 
-  categoryCount: number;
+  categoryCount: number = 0;
 
   error: string;
+
+  books: Book[];
+
+  categories: Category[];
+
+  errorMessage: string;
 
   quoteClicked: Boolean = false;
 
   showError: Boolean = false;
 
+  public options = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: true
+  }
+
   @ViewChild('quotecontainer') quoteContainer;
 
   errors: Array<string>;
 
-  constructor() {
+  constructor(private bookService: BookService, private categoryService: CategoryService, private notificationsService: NotificationsService) {
     this.errors = [
       "An error has occurred getting collection statistics or you have not started using Library App yet.",
       "An error has occurred querying your collection.",
@@ -42,19 +60,15 @@ export class AppComponent implements OnChanges {
 
     this.quote = starwars();
 
-    this.categoryCount = 0;
-    this.bookCount = 0;
-
-    if (this.categoryCount == 0 && this.bookCount == 0) {
-      this.error = this.errors[0];
-    } else if (this.bookCount == 0) {
-      this.error = this.errors[2];
-    }
-
   }
 
   ngOnChanges() {
 
+  }
+
+  ngOnInit() {
+    this.getBooks();
+    this.getCategories();
   }
 
   toggleNav() {
@@ -65,10 +79,42 @@ export class AppComponent implements OnChanges {
     this.routerOutlet = event;
   }
 
+  getBooks() {
+    this.bookService.getBooks()
+      .subscribe(
+        (books) => {
+          this.books = books;
+          for (let i in this.books) {
+            this.bookCount = this.bookCount + 1;
+            console.log("Book counted " + i)
+          }
+        },
+        error => this.errorMessage = <any>error);
+  }
+
+  getCategories() {
+    this.categoryService.getCategories()
+      .subscribe(
+        (categories) => {
+          this.categories = categories;
+          for (let i in this.categories) {
+            this.categoryCount = this.categoryCount + 1;
+            console.log("Category counted " + i)
+          }
+        },
+        error => this.errorMessage = <any>error);
+  }
+
+  // getBooks() {
+  //   this.books = this.bookService.getBooks()
+  // }
+
   toggleQuote() {
     console.log("[error state] " + this.error);
     console.log("[quote clicked] " + this.quoteClicked);
     console.log("[show quote] " + this.showQuote);
+    console.log("[book count] " + this.bookCount);
+    console.log("[category count] " + this.categoryCount);
     this.quoteClicked = true;
 
     if (this.error) {
@@ -76,11 +122,19 @@ export class AppComponent implements OnChanges {
       return false;
     }
 
+    if (this.categoryCount == 0 && this.bookCount == 0) {
+      this.error = this.errors[0];
+    } else if (this.bookCount == 0) {
+      this.error = this.errors[2];
+    }
+
     this.showQuote = !this.showQuote;
 
     if (this.showQuote == true) {
       this.quote = starwars();
     }
+
+
   }
 
 

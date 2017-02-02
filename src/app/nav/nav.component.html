@@ -1,10 +1,10 @@
 <md-toolbar>
   <span flex></span>
   <md-list-item id="logo"><h1>Library App</h1></md-list-item>
-  <button md-button routerLink="home" class="standard">Home</button>
+  <button md-button routerLink="books" class="standard">Home</button>
   <button md-button routerLink="about" class="standard">About</button>
   <span flex></span>
-  <div [hidden]="!(router.url === '/home')">
+  <div [hidden]="!(router.url === '/books' || router.url === '/books/:id')">
     <button class="right" md-icon-button (click)="toggleNav()">
       <md-icon>more_vert</md-icon>
     </button>

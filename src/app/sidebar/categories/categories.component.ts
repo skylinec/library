@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {CategoryService} from "../../category.service";
+import {Category} from "../../Category";
+import * as _ from "lodash";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-categories',
@@ -7,25 +11,25 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() {
+  categories: Category[];
+
+  errorMessage: string;
+
+  foundObj: any;
+
+  constructor(private categoryService: CategoryService) {
   }
 
-  categories = [
-    {
-      "id": 0,
-      "name": "Fiction",
-      "icon": "none",
-      "categories": {}
-    },
-    {
-      "id": 1,
-      "name": "Non-Fiction",
-      "icon": "none",
-      "categories": {}
-    }
-  ]
-
   ngOnInit() {
+    this.getCategories();
+    console.log(this.categories)
+  }
+
+  getCategories() {
+    this.categoryService.getCategories()
+      .subscribe(
+        category => this.categories = category,
+        error => this.errorMessage = <any>error);
   }
 
 }

@@ -1,22 +1,22 @@
 <md-card>
+  <md-card *ngIf="!(currentCategoryName == undefined)"><h2>Displaying books in category: "{{currentCategoryName}}"</h2>
+  </md-card>
+  <button md-button [routerLink]="['/newbook', id]">New Book</button>
   <md-grid-list cols="2">
     <md-grid-list cols="3" rowHeight="6:3">
-      <md-grid-tile *ngFor="let number of [0,1,2,3,4]">
+      <md-grid-tile *ngFor="let book of books">
         <md-card class="example-card">
           <md-card-header>
-            <md-card-title>Shiba Inu</md-card-title>
-            <md-card-subtitle>Dog Breed</md-card-subtitle>
+            <md-card-title>{{book.title}}</md-card-title>
+            <md-card-subtitle><i>By {{book.author}}</i> Category: {{book.parent}}</md-card-subtitle>
           </md-card-header>
           <md-card-content>
             <p>
-              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-              bred for hunting.
+              {{book.description}}
             </p>
           </md-card-content>
           <md-card-actions>
-            <button md-button>LIKE</button>
-            <button md-button>SHARE</button>
+            <a md-button [routerLink]="['/book', book.id]">VIEW</a>
           </md-card-actions>
         </md-card>
       </md-grid-tile>
