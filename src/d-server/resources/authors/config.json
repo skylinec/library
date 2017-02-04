@@ -32,6 +32,14 @@
       "required": false,
       "id": "tags",
       "order": 3
+    },
+    "genre": {
+      "name": "genre",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "genre",
+      "order": 4
     }
   }
 }

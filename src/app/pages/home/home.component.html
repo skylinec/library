@@ -1,14 +1,15 @@
-<md-card>
+<md-card id="home-root">
   <md-card *ngIf="!(currentCategoryName == undefined)"><h2>Displaying books in category: "{{currentCategoryName}}"</h2>
   </md-card>
   <button md-button [routerLink]="['/newbook', id]">New Book</button>
   <md-grid-list cols="2">
     <md-grid-list cols="3" rowHeight="6:3">
-      <md-grid-tile *ngFor="let book of books">
+      <md-grid-tile *ngFor="let book of books; let i = index">
         <md-card class="example-card">
           <md-card-header>
             <md-card-title>{{book.title}}</md-card-title>
-            <md-card-subtitle><i>By {{book.author}}</i> Category: {{book.parent}}</md-card-subtitle>
+            <md-card-subtitle><b>Author: {{book.author}}</b> Category: <a
+              (click)="navigateToCategory(book.parent,categoryTree[i])">{{categoryTree[i]}}</a></md-card-subtitle>
           </md-card-header>
           <md-card-content>
             <p>
@@ -16,7 +17,7 @@
             </p>
           </md-card-content>
           <md-card-actions>
-            <a md-button [routerLink]="['/book', book.id]">VIEW</a>
+            <a md-button (click)="navigateToViewBook(book)">VIEW</a>
           </md-card-actions>
         </md-card>
       </md-grid-tile>

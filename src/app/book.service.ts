@@ -16,7 +16,8 @@ export class BookService {
       .map((res: Response) => res.json());
   }
 
-  getBookById(id: string): Observable<Book> {
+  getBookById(id: string) {
+    console.log("Running get book by ID on " + id);
     return this._http.get(this.booksUrl + "?id=" + id)
       .map((res: Response) => res.json());
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, OnDestroy, OnChanges} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, OnChanges, ElementRef, Renderer} from '@angular/core';
 import {BookService} from "../../book.service";
 import {Book} from "../../Book";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,10 +16,12 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   @ViewChild('sidebar') sidebar;
 
-  books: any;
+  books: Book[];
   errorMessage: string;
   currentCategory: any;
   currentCategoryName: string = "All";
+
+  categoryTree: Array<any> = [];
 
   childCategories: Array<Object>;
 
@@ -34,14 +36,22 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     if (this.id == undefined) {
       this.bookService.getBooks()
         .subscribe(
-          books => this.books = books,
+          books => {
+            this.books = books;
+            console.log("Books: " + this.books);
+            this.buildCategoryTree(books);
+          },
           error => this.errorMessage = <any>error);
 
-      // this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
+      this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
     } else {
       this.bookService.getBooksByParentId(this.id.toString())
         .subscribe(
-          books => this.books = books,
+          books => {
+            this.books = books;
+            console.log("Books: " + this.books);
+            this.buildCategoryTree(books);
+          },
           error => this.errorMessage = <any>error);
 
       this.categoryService.getCategoryById(this.id.toString())
@@ -53,10 +63,8 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
       // this.currentCategoryName = this.currentCategory ? this.currentCategory.name : "Error";
 
-      // this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category " + this.currentCategoryName);
-
+      this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category " + this.currentCategoryName);
     }
-
   }
 
   getCategoriesByParentId(id: string) {
@@ -71,14 +79,49 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   navigateToCategory(id: string, name: string) {
-    window.location.replace("/books" + "/" + id + ";cat=" + name);
+    this.router.navigate(['/books', id, {cat: name}]);
+    this.getBooks();
+    this.getCategoriesByParentId(this.route.snapshot.params['id']);
+    // this.route.params.subscribe(params => {
+    //   console.log('Books category ID: ', params['id']);
+    //   this.id = params['id'];
+    //   this.currentCategoryName = params['cat'];
+    // });
+  };
+
+  navigateToViewBook(book) {
+    this.router.navigate(['/book', book.id]);
+  }
+
+  buildCategoryTree(books) {
+    this.categoryTree = [];
+    if (this.id == undefined) {
+      let i = 0;
+      for (let book of books) {
+        this.categoryService.getCategoryById(book.parent)
+          .subscribe((category) => {
+              this.categoryTree.push(category.name);
+              console.log("Got category name " + category.name + " for " + i.toString());
+            },
+            (error) => this.errorMessage = error);
+        i++
+      }
+    } else {
+      let i = 0;
+      for (let book of books) {
+        this.categoryTree.push(this.currentCategoryName);
+        i++
+      }
+    }
   }
 
   constructor(private bookService: BookService,
               private route: ActivatedRoute,
               private categoryService: CategoryService,
               private notificationsService: NotificationsService,
-              private router: Router) {
+              private router: Router,
+              private ref: ElementRef,
+              private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -97,7 +140,6 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    this.getBooks();
   }
 
   ngOnDestroy() {
