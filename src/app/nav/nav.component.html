@@ -10,5 +10,7 @@
     </button>
   </div>
   <span flex></span>
+  <p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)"
+                  field='name'></p-autoComplete>
 </md-toolbar>
 

@@ -27,6 +27,16 @@ export class CategoryService {
       .map((res: Response) => res.json());
   }
 
+  getCategoryByName(name: string): Observable<any> {
+    return this._http.get(this.categoriesUrl + "?name=" + name)
+      .map((res: Response) => res.json());
+  }
+
+  createCategory(value): Observable<any> {
+    return this._http.post(this.categoriesUrl, value)
+      .map((res: Response) => res.json());
+  }
+
   // getBooks() {
   //   return dpd.books.get(function(result, error) {
   //     return result

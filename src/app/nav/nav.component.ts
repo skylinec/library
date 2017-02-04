@@ -3,6 +3,8 @@ import {Jsonp, Http, Headers, Response} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import {Router} from "@angular/router";
+import {BookService} from "../book.service";
+import {Book} from "../Book";
 
 @Component({
   selector: 'app-nav',
@@ -16,10 +18,37 @@ export class NavComponent implements OnInit, OnChanges {
 
   @Output() toggledNav = new EventEmitter();
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private bookService: BookService) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Access-Control-Allow-Origin', '*');
+  }
+
+  text: string;
+
+  bookNames: Array<string> = [];
+
+  results: Book[];
+
+  val: Book;
+
+  search(event) {
+    this.bookService.getBooksPromise()
+      .then(books => {
+        this.results = this.filterBook(event, books);
+      });
+  }
+
+  filterBook(query, books: any[]): any[] {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered: any[] = [];
+    for (let i = 0; i < books.length; i++) {
+      let book = books[i];
+      if (book.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(book);
+      }
+    }
+    return filtered;
   }
 
   ngOnInit() {

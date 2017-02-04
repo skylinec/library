@@ -10,15 +10,15 @@ import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 
 @Component({
-  selector: 'app-new-book',
-  templateUrl: './new-book.component.html',
-  styleUrls: ['./new-book.component.css']
+  selector: 'app-new-category',
+  templateUrl: './new-category.component.html',
+  styleUrls: ['./new-category.component.css']
 })
-export class NewBookComponent implements OnInit {
+export class NewCategoryComponent implements OnInit {
 
   id: string;
 
-  newBookForm: FormGroup;
+  newCategoryForm: FormGroup;
   title: AbstractControl;
   parent: AbstractControl;
   interstitialId: string;
@@ -108,28 +108,15 @@ export class NewBookComponent implements OnInit {
         this.interstitialName = params['categoryname'];
       } else {
         this.interstitialId = "";
-        this.router.navigateByUrl('/newbook');
       }
     });
 
-    this.newBookForm = this.fb.group({
-      title: ['', [
+    this.newCategoryForm = this.fb.group({
+      name: ['', [
         Validators.required,
         Validators.minLength(5)
       ]],
       parent: [this.interstitialId, Validators.required],
-      description: ['', [
-        Validators.required,
-        Validators.minLength(10)
-      ]],
-      summary: ['', [
-        Validators.required,
-        Validators.minLength(10)
-      ]],
-      author: ['', [
-        Validators.required,
-        Validators.minLength(3)
-      ]],
       tags: [[]],
     })
   }

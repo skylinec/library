@@ -21,12 +21,15 @@ import {CategoryNamePipe} from './category-name.pipe';
 import {CategoryService} from "./category.service";
 import {SimpleNotificationsModule} from "angular2-notifications";
 import {TagInputModule} from "ng2-tag-input";
+import {AutoCompleteModule} from 'primeng/primeng';
+import {NewCategoryComponent} from "./pages/new-category/new-category.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NewBookComponent,
+    NewCategoryComponent,
     LoginComponent,
     RegisterComponent,
     NavComponent,
@@ -45,7 +48,8 @@ import {TagInputModule} from "ng2-tag-input";
     JsonpModule,
     HttpModule,
     MaterialModule.forRoot(),
-    TagInputModule
+    TagInputModule,
+    AutoCompleteModule,
   ],
   providers: [BookService, CategoryService],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import {Injectable, OnInit, Inject} from '@angular/core';
 import {Http, Response, URLSearchParams, Headers} from "@angular/http";
 import {Observable} from "rxjs";
+import 'rxjs/add/operator/toPromise';
 import {Book} from "./Book";
 
 @Injectable()
@@ -14,6 +15,15 @@ export class BookService {
   getBooks(): Observable<Book[]> {
     return this._http.get(this.booksUrl)
       .map((res: Response) => res.json());
+  }
+
+  getBooksPromise() {
+    return this._http.get(this.booksUrl)
+      .toPromise()
+      .then(res => <any[]> res.json().data)
+      .then(data => {
+        return data;
+      });
   }
 
   getBookById(id: string) {

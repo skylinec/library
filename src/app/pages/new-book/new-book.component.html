@@ -9,9 +9,11 @@
         Book title is required (minimum 5 characters).
       </small>
     </div>
-    <div>
+    <div [hidden]="!route.snapshot.params['categoryname']">
+      <small>Parent</small>
       <md-input-container>
-        <input md-input type="text" id="parent" placeholder="Parent" formControlName="parent">
+        <input md-input type="text" id="parent" [placeholder]="route.snapshot.params['categoryname']"
+               contenteditable="false" disabled>
       </md-input-container>
       <small [hidden]="newBookForm.get('parent').valid || (newBookForm.get('parent').pristine && !submitted)">
         Parent is required

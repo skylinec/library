@@ -1,7 +1,7 @@
 <md-card id="home-root">
   <md-card *ngIf="!(currentCategoryName == undefined)"><h2>Displaying books in category: "{{currentCategoryName}}"</h2>
   </md-card>
-  <button md-button [routerLink]="['/newbook', id]">New Book</button>
+  <button md-button [routerLink]="['/newbook', id, {categoryname: route.snapshot.params['cat']}]">New Book</button>
   <md-grid-list cols="2">
     <md-grid-list cols="3" rowHeight="6:3">
       <md-grid-tile *ngFor="let book of books; let i = index">

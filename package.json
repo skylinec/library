@@ -31,6 +31,7 @@
     "deployd": "^0.8.9",
     "hammerjs": "^2.0.8",
     "ng2-tag-input": "^0.7.9",
+    "primeng": "^2.0.0-rc.3",
     "random-qoutes-generator": "0.0.1",
     "rxjs": "^5.0.1",
     "starwars": "^1.0.0",
