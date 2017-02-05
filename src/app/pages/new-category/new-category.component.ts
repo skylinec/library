@@ -8,6 +8,7 @@ import {BookService} from "../../book.service";
 import {NotificationsService} from "angular2-notifications";
 import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-new-category',
@@ -41,7 +42,8 @@ export class NewCategoryComponent implements OnInit {
               private http: Http,
               private bookService: BookService,
               private categoryService: CategoryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private userService: UserService) {
   }
 
   public clone(): any {
@@ -93,7 +95,7 @@ export class NewCategoryComponent implements OnInit {
 
     this.categoryService.createCategory(model)
       .subscribe((res: Category) => {
-        this.router.navigate['books', res.id];
+        this.router.navigate(['books', res.id]);
         this.notificationsService.info("Category created", "Category " + model.name + " has been created.");
       });
 
@@ -113,6 +115,8 @@ export class NewCategoryComponent implements OnInit {
       }
     });
 
+    console.log("Username: " + this.userService.getUserUsername());
+
     this.newCategoryForm = this.fb.group({
       name: ['', [
         Validators.required,
@@ -120,6 +124,9 @@ export class NewCategoryComponent implements OnInit {
       ]],
       parent: [this.interstitialId],
       tags: [[]],
+      owner: [this.userService.getUserUsername(), [
+        Validators.required
+      ]]
     })
   }
 }

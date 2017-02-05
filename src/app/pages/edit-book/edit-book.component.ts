@@ -8,6 +8,7 @@ import {BookService} from "../../book.service";
 import {NotificationsService} from "angular2-notifications";
 import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-edit-book',
@@ -39,13 +40,19 @@ export class EditBookComponent implements OnInit {
 
   value: any;
 
+  currentUser: string;
+  bookOwner: string;
+
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private http: Http,
               private bookService: BookService,
               private categoryService: CategoryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private userService: UserService) {
+
+
   }
 
   public clone(): any {
@@ -117,6 +124,8 @@ export class EditBookComponent implements OnInit {
       }
     });
 
+    console.log("Username: " + this.userService.getUserUsername());
+
     this.editBookForm = this.fb.group({
       title: [this.title.value, [
         Validators.required,
@@ -140,6 +149,9 @@ export class EditBookComponent implements OnInit {
         Validators.maxLength(25)
       ]],
       tags: [[]],
+      owner: [this.userService.getUserUsername(), [
+        Validators.required
+      ]]
     });
 
     this.bookService.getBookById(this.route.snapshot.params['bookId'])
@@ -150,14 +162,19 @@ export class EditBookComponent implements OnInit {
           description: res.description,
           summary: res.summary,
           author: res.author,
-          tags: res.tags
+          tags: res.tags,
         });
+
         console.log("Editing book of title: " + res.title);
         console.log("Editing book of parent: " + res.parent);
         console.log("Editing book of description: " + res.description);
         console.log("Editing book of summary: " + res.summary);
         console.log("Editing book of author: " + res.author);
         console.log("Editing book of tags: " + res.tags);
+
+        this.bookOwner = res.owner;
       });
+
+    this.currentUser = this.userService.getUserUsername();
   }
 }

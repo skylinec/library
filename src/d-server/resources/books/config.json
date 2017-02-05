@@ -48,6 +48,14 @@
       "required": true,
       "id": "author",
       "order": 5
+    },
+    "owner": {
+      "name": "owner",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "owner",
+      "order": 6
     }
   }
 }

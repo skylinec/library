@@ -6,6 +6,8 @@ import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 import {router} from "../../app.routes";
 import {NotificationsService} from "angular2-notifications";
+import {Observable} from "rxjs";
+import {Account, Stormpath} from "angular-stormpath";
 
 @Component({
   selector: 'app-home',
@@ -27,6 +29,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
   id: string;
   sub: any;
+
+  public user$: Observable<Account | boolean>;
+  public loggedIn$: Observable<boolean>;
+  public login: boolean;
+  public register: boolean;
 
   toggleNav() {
     this.sidebar.toggle();
@@ -121,7 +128,16 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
               private notificationsService: NotificationsService,
               private router: Router,
               private ref: ElementRef,
-              private renderer: Renderer) {
+              private renderer: Renderer,
+              public stormpath: Stormpath) {
+  }
+
+  showLogin() {
+    this.login = !(this.register = false);
+  }
+
+  showRegister() {
+    this.register = !(this.login = false);
   }
 
   ngOnInit() {
@@ -137,6 +153,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     this.getBooks();
+
+    this.login = true;
+    this.register = false;
+    this.user$ = this.stormpath.user$;
+    this.loggedIn$ = this.user$.map(user => !!user);
   }
 
   ngOnChanges() {

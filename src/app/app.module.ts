@@ -6,8 +6,6 @@ import {HttpModule, Jsonp, ConnectionBackend, JsonpModule} from '@angular/http';
 import { AppComponent } from './app.component';
 import {HomeComponent} from './pages/home/home.component';
 import {NewBookComponent} from './pages/new-book/new-book.component';
-import {LoginComponent} from './pages/auth/login/login.component';
-import {RegisterComponent} from './pages/auth/register/register.component';
 import {NavComponent} from './nav/nav.component';
 import {SidebarComponent} from './sidebar/sidebar/sidebar.component';
 import {CategoriesComponent} from './sidebar/categories/categories.component';
@@ -27,6 +25,7 @@ import {EditBookComponent} from "./pages/edit-book/edit-book.component";
 import {StormpathModule} from "angular-stormpath";
 import {AuthBoxComponent} from './auth-box/auth-box.component';
 import {AuthPortComponent} from './auth-port/auth-port.component';
+import {UserService} from "./user.service";
 
 @NgModule({
   declarations: [
@@ -34,8 +33,6 @@ import {AuthPortComponent} from './auth-port/auth-port.component';
     HomeComponent,
     NewBookComponent,
     NewCategoryComponent,
-    LoginComponent,
-    RegisterComponent,
     NavComponent,
     SidebarComponent,
     CategoriesComponent,
@@ -59,7 +56,7 @@ import {AuthPortComponent} from './auth-port/auth-port.component';
     AutoCompleteModule,
     StormpathModule
   ],
-  providers: [BookService, CategoryService],
+  providers: [BookService, CategoryService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

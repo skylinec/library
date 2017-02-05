@@ -1,3 +1,4 @@
+
 <md-card>
   <h2 class="ui header">New Category</h2>
   <form [formGroup]="newCategoryForm" (ngSubmit)="save(newCategoryForm.value, newCategoryForm.valid)">
@@ -19,6 +20,7 @@
         Parent is required
       </small>
     </div>
+    <input md-input type="text" id="owner" placeholder="Owner" formControlName="owner" disabled>
     <button md-button [disabled]="!newCategoryForm.valid" type="submit">Submit</button>
   </form>
 </md-card>

@@ -5,6 +5,7 @@ import {Book} from "../../Book";
 import {CategoryService} from "../../category.service";
 import {NotificationsService} from "angular2-notifications";
 import {HomeComponent} from "../home/home.component";
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-view-book',
@@ -17,6 +18,8 @@ export class ViewBookComponent implements OnInit {
   errorMessage: string;
   id: string;
 
+  currentUser: string;
+
   currentCategoryName: string = "All";
 
   categoryTree: Array<any> = [];
@@ -27,7 +30,8 @@ export class ViewBookComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private categoryService: CategoryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private userService: UserService) {
   }
 
   getBook() {
@@ -82,6 +86,7 @@ export class ViewBookComponent implements OnInit {
 
   ngOnInit() {
     this.getBook();
+    this.currentUser = this.userService.getUserUsername();
   }
 
 }

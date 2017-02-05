@@ -8,6 +8,7 @@ import {BookService} from "../../book.service";
 import {NotificationsService} from "angular2-notifications";
 import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-new-book',
@@ -41,7 +42,8 @@ export class NewBookComponent implements OnInit {
               private http: Http,
               private bookService: BookService,
               private categoryService: CategoryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private userService: UserService) {
   }
 
   public clone(): any {
@@ -112,6 +114,8 @@ export class NewBookComponent implements OnInit {
       }
     });
 
+    console.log("Username: " + this.userService.getUserUsername());
+
     this.newBookForm = this.fb.group({
       title: ['', [
         Validators.required,
@@ -135,6 +139,9 @@ export class NewBookComponent implements OnInit {
         Validators.maxLength(25)
       ]],
       tags: [[]],
+      owner: [this.userService.getUserUsername(), [
+        Validators.required
+      ]]
     })
   }
 }

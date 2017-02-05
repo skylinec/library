@@ -22,7 +22,7 @@ app.set('trust proxy', true);
  setup this server before we initialize Stormpath.
  */
 
-app.use('/', express.static(path.join(__dirname, '..'), {redirect: false}));
+app.use('/', express.static(path.join(__dirname, '..', 'dist'), {redirect: false}));
 
 app.use(function (req, res, next) {
   console.log(new Date, req.method, req.url);
@@ -40,7 +40,7 @@ app.use(stormpath.init(app, {
     // produces: ['text/html'],
     spa: {
       enabled: true,
-      view: path.join(__dirname, '..', 'src', 'index.html')
+      view: path.join(__dirname, '..', 'dist', 'index.html')
     },
     me: {
       // enabled: false,
@@ -62,9 +62,12 @@ app.use(stormpath.init(app, {
  * to define all view routes, and redirect to the home page if the URL is not
  * defined.
  */
-app.route('/*')
+
+// use it before all route definitions
+
+app.route('/')
   .get(function (req, res) {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
   });
 
 /**

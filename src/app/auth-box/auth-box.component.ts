@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Stormpath, Account} from "angular-stormpath";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-box',
@@ -14,7 +15,7 @@ export class AuthBoxComponent implements OnInit {
   private login: boolean;
   private register: boolean;
 
-  constructor(public stormpath: Stormpath) {
+  constructor(public stormpath: Stormpath, private router: Router) {
   }
 
   ngOnInit() {
@@ -34,6 +35,7 @@ export class AuthBoxComponent implements OnInit {
 
   logout() {
     this.stormpath.logout();
+    this.router.navigate(['/auth']);
   }
 
 }
