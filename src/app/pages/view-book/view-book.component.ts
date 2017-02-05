@@ -1,7 +1,10 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {BookService} from "../../book.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Book} from "../../Book";
+import {CategoryService} from "../../category.service";
+import {NotificationsService} from "angular2-notifications";
+import {HomeComponent} from "../home/home.component";
 
 @Component({
   selector: 'app-view-book',
@@ -14,7 +17,17 @@ export class ViewBookComponent implements OnInit {
   errorMessage: string;
   id: string;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute) {
+  currentCategoryName: string = "All";
+
+  categoryTree: Array<any> = [];
+
+  childCategories: Array<Object>;
+
+  constructor(private bookService: BookService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private categoryService: CategoryService,
+              private notificationsService: NotificationsService) {
   }
 
   getBook() {
@@ -31,10 +44,41 @@ export class ViewBookComponent implements OnInit {
       .subscribe(
         (res) => {
           this.book = res;
-          console.log("Res received from service: " + res)
+          console.log("Res received from service: " + res);
+          this.buildCategoryTree(res);
         },
         (error) => this.errorMessage = error)
   }
+
+  deleteBook(id: string, parent: string, name: string) {
+    this.bookService.deleteBookById(id)
+      .subscribe((res) => {
+
+        },
+        (error) => {
+          console.log("Error deleting book: " + error);
+        });
+    this.notificationsService.info("Books deleted", "Book " + name + " has been deleted.");
+    if (!(parent == undefined)) {
+      this.router.navigate(['/books', parent, {cat: this.route.params['cat']}]);
+    } else {
+      this.router.navigate(['/books']);
+    }
+
+  }
+
+  buildCategoryTree(book) {
+    this.categoryService.getCategoryById(book.parent)
+      .subscribe((category) => {
+          this.categoryTree.push(category.name);
+          console.log("Got category name " + category.name);
+        },
+        (error) => this.errorMessage = error);
+  }
+
+  navigateToCategory(id: string, name: string) {
+    this.router.navigate(['/books', id, {cat: name}]);
+  };
 
   ngOnInit() {
     this.getBook();

@@ -1,8 +1,14 @@
 <div style="max-width: 700px; min-width: 500px; margin-left: auto; margin-right: auto; height: auto;">
   <md-card>
     <h1>{{book.title}} by <i>{{book.author}}</i></h1>
+    <b>Author: {{book.author}}</b> <span [hidden]="categoryTree[0] == undefined">Category: <a
+    (click)="navigateToCategory(book.parent,categoryTree[0])">{{categoryTree[0]}}</a></span>
     <h2>Description</h2>
     <md-card>{{book.description}}</md-card>
+    <md-card-actions>
+      <a md-button [routerLink]="['/editbook', categoryTree[0], {cat: categoryTree[0], bookId: book.id}]">EDIT</a>
+      <a md-button (click)="deleteBook(book.id, book.parent, book.name)">DELETE</a>
+    </md-card-actions>
   </md-card>
 </div>
 

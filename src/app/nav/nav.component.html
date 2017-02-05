@@ -4,13 +4,13 @@
   <button md-button routerLink="books" class="standard">Home</button>
   <button md-button routerLink="about" class="standard">About</button>
   <span flex></span>
-  <div [hidden]="!(router.url === '/books' || router.url === '/books/:id')">
+  <div [hidden]="!(doc.location.href.includes('/books'))">
     <button class="right" md-icon-button (click)="toggleNav()">
       <md-icon>more_vert</md-icon>
     </button>
   </div>
   <span flex></span>
-  <p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)"
-                  field='name'></p-autoComplete>
+  <!--<p-autoComplete [(ngModel)]="val" [suggestions]="results" (completeMethod)="search($event)"-->
+  <!--field='name'></p-autoComplete>-->
 </md-toolbar>
 

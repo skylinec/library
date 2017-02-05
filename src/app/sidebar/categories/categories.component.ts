@@ -3,6 +3,7 @@ import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 import * as _ from "lodash";
 import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-categories',
@@ -17,12 +18,26 @@ export class CategoriesComponent implements OnInit {
 
   foundObj: any;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.getCategories();
     console.log(this.categories)
+  }
+
+  getCategoriesByParentId(id: string): Category[] {
+    if (!(id == undefined)) {
+      this.categoryService.getCategoriesByParentId(id)
+        .subscribe(
+          categories => {
+            return categories;
+          },
+          error => this.errorMessage = <any>error);
+    } else {
+      return []
+    }
   }
 
   getCategories() {

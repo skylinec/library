@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
           },
           error => this.errorMessage = <any>error);
 
-      this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
+      // this.notificationsService.info("Books Loaded", "Books have been loaded from the database.")
     } else {
       this.bookService.getBooksByParentId(this.id.toString())
         .subscribe(
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
 
       // this.currentCategoryName = this.currentCategory ? this.currentCategory.name : "Error";
 
-      this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category " + this.currentCategoryName);
+      // this.notificationsService.info("Books loaded from category", "Books have been loaded from the database for category " + this.currentCategoryName);
     }
   }
 
@@ -100,11 +100,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
       for (let book of books) {
         this.categoryService.getCategoryById(book.parent)
           .subscribe((category) => {
+              i++;
               this.categoryTree.push(category.name);
               console.log("Got category name " + category.name + " for " + i.toString());
             },
             (error) => this.errorMessage = error);
-        i++
       }
     } else {
       let i = 0;

@@ -16,9 +16,6 @@
     ],
     "types": [
       "hammerjs"
-    ],
-    "files": [
-      "typings/index.d.ts"
     ]
   }
 }

@@ -92,8 +92,8 @@ export class NewBookComponent implements OnInit {
     this.submitted = true; // set form submit to true
 
     this.bookService.createBook(model)
-      .subscribe((res: Response) => {
-        this.router.navigateByUrl('/books');
+      .subscribe((res: Book) => {
+        this.router.navigate(['/book', res.id]);
         this.notificationsService.info("Book saved", "Book " + model.title + " has been saved.");
       });
 
@@ -115,20 +115,24 @@ export class NewBookComponent implements OnInit {
     this.newBookForm = this.fb.group({
       title: ['', [
         Validators.required,
-        Validators.minLength(5)
+        Validators.minLength(5),
+        Validators.maxLength(40)
       ]],
-      parent: [this.interstitialId, Validators.required],
+      parent: [this.interstitialId],
       description: ['', [
         Validators.required,
-        Validators.minLength(10)
+        Validators.minLength(10),
+        Validators.maxLength(300)
       ]],
       summary: ['', [
         Validators.required,
-        Validators.minLength(10)
+        Validators.minLength(10),
+        Validators.maxLength(50)
       ]],
       author: ['', [
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(3),
+        Validators.maxLength(25)
       ]],
       tags: [[]],
     })

@@ -7,6 +7,7 @@ import {CategoryService} from "./category.service";
 import {Category} from "./Category";
 import {forEach} from "@angular/router/src/utils/collection";
 import {NotificationsService} from "angular2-notifications";
+import {ActivatedRoute, Router} from "@angular/router";
 var starwars = require('starwars');
 
 @Component({
@@ -48,7 +49,11 @@ export class AppComponent implements OnChanges, OnInit {
 
   errors: Array<string>;
 
-  constructor(private bookService: BookService, private categoryService: CategoryService, private notificationsService: NotificationsService) {
+  constructor(private bookService: BookService,
+              private categoryService: CategoryService,
+              private notificationsService: NotificationsService,
+              private router: Router,
+              private route: ActivatedRoute) {
     this.errors = [
       "An error has occurred getting collection statistics or you have not started using Library App yet.",
       "An error has occurred querying your collection.",
@@ -76,6 +81,7 @@ export class AppComponent implements OnChanges, OnInit {
   }
 
   onActivate(event) {
+    console.log("ACTIVATED ROUTE IS " + this.route.outlet);
     this.routerOutlet = event;
   }
 

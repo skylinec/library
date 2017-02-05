@@ -32,6 +32,12 @@ export class BookService {
       .map((res: Response) => res.json());
   }
 
+  deleteBookById(id: string) {
+    console.log("Running get book by ID on " + id);
+    return this._http.delete(this.booksUrl + "?id=" + id)
+      .map((res: Response) => res.json());
+  }
+
   getBooksByParentId(id: string): Observable<Book[]> {
     return this._http.get(this.booksUrl + "?parent=" + id)
       .map((res: Response) => res.json());
@@ -39,6 +45,11 @@ export class BookService {
 
   createBook(value): Observable<any> {
     return this._http.post(this.booksUrl, value)
+      .map((res: Response) => res.json());
+  }
+
+  editBook(value): Observable<any> {
+    return this._http.put(this.booksUrl, value)
       .map((res: Response) => res.json());
   }
 

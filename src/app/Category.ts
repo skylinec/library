@@ -4,4 +4,5 @@ export class Category {
   children: Array<string>;
   books: Array<string>;
   parent: string;
+  owner: string;
 }

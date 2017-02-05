@@ -10,17 +10,21 @@ import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 
 @Component({
-  selector: 'app-new-category',
-  templateUrl: './new-category.component.html',
-  styleUrls: ['./new-category.component.css']
+  selector: 'app-edit-book',
+  templateUrl: './edit-book.component.html',
+  styleUrls: ['./edit-book.component.css']
 })
-export class NewCategoryComponent implements OnInit {
+export class EditBookComponent implements OnInit {
 
   id: string;
 
-  newCategoryForm: FormGroup;
-  title: AbstractControl;
-  parent: AbstractControl;
+  editBookForm: FormGroup;
+  title: FormControl = new FormControl("");
+  parent: FormControl = new FormControl("");
+  description: FormControl = new FormControl("");
+  summary: FormControl = new FormControl("");
+  author: FormControl = new FormControl("");
+  tags: FormControl = new FormControl([]);
   interstitialId: string;
   interstitialName: string;
   namedObject: Category;
@@ -91,10 +95,12 @@ export class NewCategoryComponent implements OnInit {
 
     this.submitted = true; // set form submit to true
 
-    this.categoryService.createCategory(model)
-      .subscribe((res: Category) => {
-        this.router.navigate['books', res.id];
-        this.notificationsService.info("Category created", "Category " + model.name + " has been created.");
+    model.id = this.route.snapshot.params['bookId'];
+
+    this.bookService.editBook(model)
+      .subscribe((res: Book) => {
+        this.router.navigate(['/book', res.id]);
+        this.notificationsService.info("Book saved", "Book " + model.title + " has been saved.");
       });
 
     console.log(model, isValid);
@@ -102,24 +108,56 @@ export class NewCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log('Category parent ID: ', params['id']);
-      if (this.route.snapshot.params['id'] == "undefined") {
-        this.interstitialId = "";
-        this.interstitialName = "";
-        this.router.navigateByUrl('/newcategory');
-      } else {
+      console.log('Books category ID: ', params['id']);
+      if (!(this.route.snapshot.params['id'] == "undefined")) {
         this.interstitialId = params['id'];
         this.interstitialName = params['categoryname'];
+      } else {
+        this.interstitialId = "";
       }
     });
 
-    this.newCategoryForm = this.fb.group({
-      name: ['', [
+    this.editBookForm = this.fb.group({
+      title: [this.title.value, [
         Validators.required,
-        Validators.minLength(5)
+        Validators.minLength(5),
+        Validators.maxLength(40)
       ]],
       parent: [this.interstitialId],
+      description: [this.description, [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(300)
+      ]],
+      summary: [this.summary, [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(50)
+      ]],
+      author: [this.author, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25)
+      ]],
       tags: [[]],
-    })
+    });
+
+    this.bookService.getBookById(this.route.snapshot.params['bookId'])
+      .subscribe((res) => {
+        this.editBookForm.patchValue({
+          title: res.title,
+          parent: res.parent,
+          description: res.description,
+          summary: res.summary,
+          author: res.author,
+          tags: res.tags
+        });
+        console.log("Editing book of title: " + res.title);
+        console.log("Editing book of parent: " + res.parent);
+        console.log("Editing book of description: " + res.description);
+        console.log("Editing book of summary: " + res.summary);
+        console.log("Editing book of author: " + res.author);
+        console.log("Editing book of tags: " + res.tags);
+      });
   }
 }

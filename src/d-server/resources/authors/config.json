@@ -40,6 +40,14 @@
       "required": false,
       "id": "genre",
       "order": 4
+    },
+    "owner": {
+      "name": "owner",
+      "type": "string",
+      "typeLabel": "string",
+      "required": false,
+      "id": "owner",
+      "order": 5
     }
   }
 }

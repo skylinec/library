@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, EventEmitter, Output, OnChanges} from '@an
 import {Jsonp, Http, Headers, Response} from '@angular/http';
 
 import 'rxjs/add/operator/map';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {BookService} from "../book.service";
 import {Book} from "../Book";
 
@@ -16,9 +16,13 @@ export class NavComponent implements OnInit, OnChanges {
   quote: any;
   headers: any;
 
+  myUrl: string;
+
+  doc = document;
+
   @Output() toggledNav = new EventEmitter();
 
-  constructor(private http: Http, private router: Router, private bookService: BookService) {
+  constructor(private http: Http, private router: Router, private bookService: BookService, private route: ActivatedRoute) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Access-Control-Allow-Origin', '*');
@@ -32,9 +36,11 @@ export class NavComponent implements OnInit, OnChanges {
 
   val: Book;
 
+  test = '/books';
+
   search(event) {
-    this.bookService.getBooksPromise()
-      .then(books => {
+    this.bookService.getBooks()
+      .subscribe(books => {
         this.results = this.filterBook(event, books);
       });
   }

@@ -6,4 +6,5 @@ export class Book {
   summary: string;
   tags: Array<string>;
   parent: string;
+  owner: string;
 }

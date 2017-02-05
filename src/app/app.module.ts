@@ -23,6 +23,7 @@ import {SimpleNotificationsModule} from "angular2-notifications";
 import {TagInputModule} from "ng2-tag-input";
 import {AutoCompleteModule} from 'primeng/primeng';
 import {NewCategoryComponent} from "./pages/new-category/new-category.component";
+import {EditBookComponent} from "./pages/edit-book/edit-book.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {NewCategoryComponent} from "./pages/new-category/new-category.component"
     CategoriesComponent,
     AboutComponent,
     ViewBookComponent,
+    EditBookComponent,
     CategoryNamePipe,
   ],
   imports: [

@@ -1,5 +1,6 @@
 <md-card id="home-root">
-  <md-card *ngIf="!(currentCategoryName == undefined)"><h2>Displaying books in category: "{{currentCategoryName}}"</h2>
+  <md-card *ngIf="!(currentCategoryName == undefined)">
+    <h2>Displaying books in category: "{{currentCategoryName}}"</h2>
   </md-card>
   <button md-button [routerLink]="['/newbook', id, {categoryname: route.snapshot.params['cat']}]">New Book</button>
   <md-grid-list cols="2">
@@ -8,8 +9,9 @@
         <md-card class="example-card">
           <md-card-header>
             <md-card-title>{{book.title}}</md-card-title>
-            <md-card-subtitle><b>Author: {{book.author}}</b> Category: <a
-              (click)="navigateToCategory(book.parent,categoryTree[i])">{{categoryTree[i]}}</a></md-card-subtitle>
+            <md-card-subtitle><b>Author: {{book.author}}</b> <span [hidden]="categoryTree[i] == undefined">Category: <a
+              (click)="navigateToCategory(book.parent,categoryTree[i])">{{categoryTree[i]}}</a></span>
+            </md-card-subtitle>
           </md-card-header>
           <md-card-content>
             <p>
@@ -25,7 +27,12 @@
   </md-grid-list>
   <app-sidebar style="position: fixed" #sidebar></app-sidebar>
   <md-card *ngIf="!(childCategories == undefined)">
-    <h2>Child categories</h2>
+    <h2>Child categories
+      <button md-icon-button [hidden]="!route.snapshot.params['cat']"
+              [routerLink]="['/newcategory', route.snapshot.params['id'], {categoryname: route.snapshot.params['cat']}]">
+        <md-icon>create_new_folder</md-icon>
+      </button>
+    </h2>
     <div *ngFor="let childCategory of childCategories">
       <button md-button (click)="navigateToCategory(childCategory.id, childCategory.name)">
         <md-icon>{{childCategory.icon}}</md-icon>

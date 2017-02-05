@@ -1,0 +1,55 @@
+<md-card>
+  <h2 class="ui header">Edit Book</h2>
+  <form [formGroup]="editBookForm" (ngSubmit)="save(editBookForm.value, editBookForm.valid)">
+    <div>
+      <md-input-container>
+        <input md-input type="text" id="title" placeholder="Title" formControlName="title">
+      </md-input-container>
+      <small [hidden]="editBookForm.get('title').valid || (editBookForm.get('title').pristine && !submitted)">
+        Book title is required (minimum 5 characters).
+      </small>
+    </div>
+    <div [hidden]="!route.snapshot.params['categoryname']">
+      <small>Parent</small>
+      <md-input-container>
+        <input md-input type="text" id="parent" [placeholder]="route.snapshot.params['categoryname']"
+               contenteditable="false" disabled>
+      </md-input-container>
+      <small [hidden]="editBookForm.get('parent').valid || (editBookForm.get('parent').pristine && !submitted)">
+        Parent is required
+      </small>
+    </div>
+    <div>
+      <md-input-container>
+        <input md-input type="text" id="summary" placeholder="Summary" formControlName="summary">
+      </md-input-container>
+      <small [hidden]="editBookForm.get('summary').valid || (editBookForm.get('summary').pristine && !submitted)">
+        Summary is required (minimum 10 characters).
+      </small>
+    </div>
+    <div>
+      <md-input-container>
+        <input md-input type="text" id="description" placeholder="Description" formControlName="description">
+      </md-input-container>
+      <small
+        [hidden]="editBookForm.get('description').valid || (editBookForm.get('description').pristine && !submitted)">
+        Description is required (minimum 10 characters).
+      </small>
+    </div>
+    <div>
+      <md-input-container>
+        <input md-input type="text" id="author" placeholder="Author" formControlName="author">
+      </md-input-container>
+      <small [hidden]="editBookForm.get('author').valid || (editBookForm.get('author').pristine && !submitted)">
+        Author is required (minimum 3 characters).
+      </small>
+    </div>
+    <div>
+      <div class="section">
+        <tag-input formControlName="tags"
+                   [editable]="true"></tag-input>
+      </div>
+    </div>
+    <button md-button [disabled]="!editBookForm.valid" type="submit">Submit</button>
+  </form>
+</md-card>

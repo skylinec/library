@@ -1,9 +1,22 @@
-<h2 style="margin-left: 10px">Categories</h2>
+<span>
+  <h2 style="margin-left: 10px">Categories <md-icon
+    [routerLink]="['/newcategory']">create_new_folder</md-icon></h2>
+</span>
 <div class="category-listing" *ngFor="let category of categories">
-  <div *ngIf="category.parent == undefined">
-    <button md-button [routerLink]="['/books', category.id, {cat: category.name}]">
+  <div>
+    <button *ngIf="category.parent == undefined" md-button [routerLink]="['/books', category.id, {cat: category.name}]">
       <md-icon>{{category.icon}}</md-icon>
       <a>{{category.name}}</a>
     </button>
+    <!--<div *ngIf="!category.parent">-->
+    <!--<div *ngFor="let subCategory of getCategoriesByParentId(category.id)">-->
+    <!--<button md-button [routerLink]="['/books', subCategory.id, {cat: subCategory.name}]">-->
+    <!--<span *ngIf="!(subCategory.parent == undefined)">C</span>-->
+    <!--<md-icon>{{subCategory.icon}}</md-icon>-->
+    <!--<a>{{subCategory.name}}</a>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
   </div>
 </div>
