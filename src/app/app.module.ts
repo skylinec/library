@@ -24,6 +24,9 @@ import {TagInputModule} from "ng2-tag-input";
 import {AutoCompleteModule} from 'primeng/primeng';
 import {NewCategoryComponent} from "./pages/new-category/new-category.component";
 import {EditBookComponent} from "./pages/edit-book/edit-book.component";
+import {StormpathModule} from "angular-stormpath";
+import {AuthBoxComponent} from './auth-box/auth-box.component';
+import {AuthPortComponent} from './auth-port/auth-port.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import {EditBookComponent} from "./pages/edit-book/edit-book.component";
     ViewBookComponent,
     EditBookComponent,
     CategoryNamePipe,
+    AuthBoxComponent,
+    AuthPortComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ import {EditBookComponent} from "./pages/edit-book/edit-book.component";
     MaterialModule.forRoot(),
     TagInputModule,
     AutoCompleteModule,
+    StormpathModule
   ],
   providers: [BookService, CategoryService],
   bootstrap: [AppComponent]

@@ -1,0 +1,10 @@
+<div *ngIf="(user$ | async)" class="row text-right">
+  <i class="">
+    Welcome, ({{ ( user$ | async ).fullName }}). <a href="#" (click)="logout()">Logout</a>
+  </i>
+</div>
+<div *ngIf="!(user$ | async)" class="row text-right">
+  <i class="">
+    <a href="#" [routerLink]="['/auth']">Log in</a>
+  </i>
+</div>

@@ -8,6 +8,8 @@ import {Category} from "./Category";
 import {forEach} from "@angular/router/src/utils/collection";
 import {NotificationsService} from "angular2-notifications";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {Account, Stormpath} from "angular-stormpath";
 var starwars = require('starwars');
 
 @Component({
@@ -43,17 +45,23 @@ export class AppComponent implements OnChanges, OnInit {
     position: ["bottom", "right"],
     timeOut: 5000,
     lastOnBottom: true
-  }
+  };
 
   @ViewChild('quotecontainer') quoteContainer;
 
   errors: Array<string>;
 
+  public user$: Observable<Account | boolean>;
+  public loggedIn$: Observable<boolean>;
+  public login: boolean;
+  public register: boolean;
+
   constructor(private bookService: BookService,
               private categoryService: CategoryService,
               private notificationsService: NotificationsService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public stormpath: Stormpath) {
     this.errors = [
       "An error has occurred getting collection statistics or you have not started using Library App yet.",
       "An error has occurred querying your collection.",

@@ -5,6 +5,9 @@
       {{title}}
       <simple-notifications [options]="options"></simple-notifications>
       <app-nav (toggledNav)="toggleNav()"></app-nav>
+      <md-card>
+        <app-auth-box></app-auth-box>
+      </md-card>
       <div id="quote-container" style="" #quotecontainer (click)="toggleQuote()">
         <i style="font-size: small" [hidden]="showQuote == false">Nugget of wisdom: "<b>{{quote}}</b>"</i>
         <span class="invis-box" [hidden]="(showQuote == true || !(error == undefined))"><i style="font-size: small">You currently have <b>{{bookCount}}</b> books under <b>{{categoryCount}}</b> categories.</i> </span><span

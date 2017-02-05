@@ -38,6 +38,9 @@ testem.log
 /src/d-server/data
 /src/d-server/.dpd/pids
 
+DO_NOT_ADD_TO_GIT
+DO_NOT_ADD_TO_GIT/*
+
 #System Files
 .DS_Store
 Thumbs.db
