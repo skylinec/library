@@ -7,7 +7,7 @@
     "ng": "ng",
     "heroku-prebuild": "",
     "heroku-postbuild": "ng build --prod",
-    "start": "concurrently --kill-others \"node server/auth_server.js\" \"cd src/d-server && dpd\"",
+    "start": "ng-build --prod && concurrently --kill-others \"node server/auth_server.js\" \"cd src/d-server && dpd\"",
     "dev-start": "ng-serve",
     "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "test": "ng test",
