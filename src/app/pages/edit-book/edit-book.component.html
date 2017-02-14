@@ -30,7 +30,7 @@
       </div>
       <div>
         <md-input-container>
-          <input md-input type="text" id="description" placeholder="Description" formControlName="description">
+          <textarea md-input type="text" id="description" placeholder="Description" formControlName="description"></textarea>
         </md-input-container>
         <small
           [hidden]="editBookForm.get('description').valid || (editBookForm.get('description').pristine && !submitted)">
