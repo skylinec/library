@@ -9,6 +9,7 @@ Run `ng build` on each change, `node server/auth_server.js` and `cd src/d-server
 ## Deploying
 
 In order to deploy, execute these instructions:
+
 1. Run `npm install dpd-cli -g` in your console and ensure mongodb is installed.
 2. Do this: [Create a Stormpath API Key Pair](https://docs.stormpath.com/rest/product-guide/latest/quickstart.html#create-an-api-key-pair)
 3. Enter into the git pull'd directory and run `npm start`, which will launch the backend as well as the frontend with the API layer.
