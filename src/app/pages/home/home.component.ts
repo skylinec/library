@@ -86,15 +86,11 @@ export class HomeComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   navigateToCategory(id: string, name: string) {
-    this.router.navigate(['/books', id, {cat: name}]);
-    this.getBooks();
-    this.getCategoriesByParentId(this.route.snapshot.params['id']);
-    // this.route.params.subscribe(params => {
-    //   console.log('Books category ID: ', params['id']);
-    //   this.id = params['id'];
-    //   this.currentCategoryName = params['cat'];
-    // });
-  };
+    this.router.navigate(['/loading']);
+    setTimeout(() => {
+      this.router.navigate(['/books', id, {cat: name}]);
+    }, 250);
+  }
 
   navigateToViewBook(book) {
     this.router.navigate(['/book', book.id]);
