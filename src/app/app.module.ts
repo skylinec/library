@@ -26,6 +26,7 @@ import {StormpathModule} from "angular-stormpath";
 import {AuthBoxComponent} from './auth-box/auth-box.component';
 import {AuthPortComponent} from './auth-port/auth-port.component';
 import {UserService} from "./user.service";
+import {LoadingComponent} from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {UserService} from "./user.service";
     CategoryNamePipe,
     AuthBoxComponent,
     AuthPortComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

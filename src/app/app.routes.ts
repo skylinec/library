@@ -7,6 +7,7 @@ import {NewBookComponent} from "./pages/new-book/new-book.component";
 import {NewCategoryComponent} from "./pages/new-category/new-category.component";
 import {EditBookComponent} from "./pages/edit-book/edit-book.component";
 import {AuthPortComponent} from "./auth-port/auth-port.component";
+import {LoadingComponent} from "./loading/loading.component";
 
 export const router: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
@@ -19,7 +20,8 @@ export const router: Routes = [
   {path: 'editbook/:id', component: EditBookComponent},
   {path: 'book/:id', component: ViewBookComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'auth', component: AuthPortComponent}
+  {path: 'auth', component: AuthPortComponent},
+  {path: 'loading', component: LoadingComponent}
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router, {useHash: true});

@@ -31,9 +31,9 @@ export class AppComponent implements OnChanges, OnInit {
 
   error: string;
 
-  books: Book[];
+  books: any;
 
-  categories: Category[];
+  categories: any;
 
   errorMessage: string;
 

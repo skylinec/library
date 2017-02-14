@@ -4,7 +4,7 @@
 </span>
 <div class="category-listing" *ngFor="let category of categories">
   <div>
-    <button *ngIf="category.parent == undefined" md-button [routerLink]="['/books', category.id, {cat: category.name}]">
+    <button *ngIf="category.parent == undefined" md-button (click)='navigateToCategory(category.id, category.name)'>
       <md-icon>{{category.icon}}</md-icon>
       <a>{{category.name}}</a>
     </button>

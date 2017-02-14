@@ -12,7 +12,7 @@ export class UserService {
   }
 
   getUser(): Observable<any> {
-    return this._http.get("http://localhost:4200/me")
+    return this._http.get("http://localhost:3000/me")
       .map((res) => res.json());
   }
 

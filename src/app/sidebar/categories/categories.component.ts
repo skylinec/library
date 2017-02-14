@@ -3,7 +3,7 @@ import {CategoryService} from "../../category.service";
 import {Category} from "../../Category";
 import * as _ from "lodash";
 import {Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-categories',
@@ -19,7 +19,8 @@ export class CategoriesComponent implements OnInit {
   foundObj: any;
 
   constructor(private categoryService: CategoryService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -38,6 +39,13 @@ export class CategoriesComponent implements OnInit {
     } else {
       return []
     }
+  }
+
+  navigateToCategory(id: string, name: string) {
+    this.router.navigate(['/loading']);
+    setTimeout(() => {
+      this.router.navigate(['/books', id, {cat: name}]);
+    }, 250);
   }
 
   getCategories() {
